@@ -1,8 +1,3 @@
-from functools import reduce
-from operator import add
-from os import environ
-
-
 def getFirstAndLastDigit(inputString):
     firstDigit = None
     lastDigit = None
