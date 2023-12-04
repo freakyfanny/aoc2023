@@ -1,31 +1,30 @@
-def calculate_points(cards):
-    total_points = 0
+def evaluateCard(card):
+    _, nums = card.split(":")
+    winnerNums, nums = nums.split("|")
+    winnerNums = [int(w) for w in winnerNums.split() if w]
+    nums = [int(n) for n in nums.split() if n]
+    return len(set(nums).intersection(set(winnerNums)))
 
-    for idx, card in enumerate(cards, start=1):
-        card_data = card.split(': ')[1].split('|')
-        winning_numbers = set(map(int, card_data[0].split()))
-        your_numbers = list(map(int, card_data[1].split()))
+def part1(cards):
+    sumTotal = 0
+    for card in cards:
+        currentExponent = evaluateCard(card) - 1
+        if currentExponent >= 0:
+            sumTotal += 2**currentExponent
+    print("Total points:", sumTotal)
 
-        points = 0  # Reset points to 0 for each card
-        matched_numbers = set()
+def part2(cards):
+    cardNums = [1] * len(cards)
+    for id, card in enumerate(cards):
+        wins = evaluateCard(card)
+        cardNums[id + 1 : id + wins + 1] = [x + cardNums[id] for x in cardNums[id + 1 : id + wins + 1]]
 
-        for num in your_numbers:
-            if num in winning_numbers and num not in matched_numbers:
-                matched_numbers.add(num)
-                if points == 0:
-                    points = 1 
-                elif points >= 1:
-                    points *= 2
+    print("Total cards:", int(sum(cardNums)))
 
-        total_points += points
-        print(f"Card {idx}: {points} points")
-        print(f"Matched numbers for Card {idx}: {matched_numbers}")
+# Read card data from file
+filePath = 'puzzle-day04.txt'
+with open(filePath, 'r') as file:
+    cardsData = file.readlines()
 
-    return total_points
-
-file_path = 'puzzle-day04.txt'
-with open(file_path, 'r') as file:
-    cards_data = file.readlines()
-
-total_points = calculate_points(cards_data)
-print(f"\nThe total points of the cards are: {total_points}")
+part1(cardsData)
+part2(cardsData)
