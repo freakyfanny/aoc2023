@@ -2,7 +2,6 @@ def calculate_points(cards):
     total_points = 0
 
     for idx, card in enumerate(cards, start=1):
-        # Split the card data into winning and your numbers
         card_data = card.split(': ')[1].split('|')
         winning_numbers = set(map(int, card_data[0].split()))
         your_numbers = list(map(int, card_data[1].split()))
@@ -16,7 +15,7 @@ def calculate_points(cards):
                 if points == 0:
                     points = 1 
                 elif points >= 1:
-                    points *= 2  # Double points for subsequent matches
+                    points *= 2
 
         total_points += points
         print(f"Card {idx}: {points} points")
@@ -24,8 +23,6 @@ def calculate_points(cards):
 
     return total_points
 
-
-# Read card data from file
 file_path = 'puzzle-day04.txt'
 with open(file_path, 'r') as file:
     cards_data = file.readlines()
