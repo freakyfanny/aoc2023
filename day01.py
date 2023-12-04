@@ -33,6 +33,6 @@ def calculateSum(fileName):
     totalSum = sum(results)
     return totalSum
 
-fileName = "puzzle-input.txt"
+fileName = "puzzle-input-day01.txt"
 total = calculateSum(fileName)
 print("Total sum of first and last digits:", total)
