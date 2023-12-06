@@ -6,7 +6,7 @@ possibleCubeCount = {
 
 result = 0
 
-with open('puzzle-day02.txt', 'r') as file:
+with open('input.txt', 'r') as file:
     gameInput = file.read()
 
 def isGamePossible(line: str) -> bool:
@@ -17,6 +17,7 @@ def isGamePossible(line: str) -> bool:
             if int(num) > possibleCubeCount[color]:
                 return False
     return True
+
 
 for index, line in enumerate(gameInput.split("\n")):
     if isGamePossible(line):
